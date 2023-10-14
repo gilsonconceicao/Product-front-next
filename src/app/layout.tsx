@@ -1,7 +1,9 @@
-import { Header } from '@/Components/Header/Header'
-import './globals.css'
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Header } from '@/Components/Header/Header';
+import './globals.css';
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import { QueryClientCustomProvider } from '@/Contexts/QueryClientContext/QueryClientContext';
+import { ThemeCustomProvider } from '@/Contexts/ThemeProvider/ThemeProvider';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,8 +20,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Header />
-        <main className='m-8'>{children}</main>
+        <ThemeCustomProvider>
+          <QueryClientCustomProvider>
+            <Header />
+            <main className='m-8'>{children}</main>
+          </QueryClientCustomProvider>
+        </ThemeCustomProvider>
       </body>
     </html>
   )

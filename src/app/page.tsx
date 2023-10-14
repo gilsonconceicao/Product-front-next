@@ -1,23 +1,10 @@
-import { ListNavigations } from '@/Components/ListNavigations/ListNavigations'
-import { getData } from '@/servers/Products/Products';
-import Link from 'next/link'
-import { useEffect, useState } from 'react';
+import { Card } from '@/Components/Card/Card';
 
 export default function Home() {
-  const [data, setData] = useState<any>([]);
-  
-  useEffect(() => {
-    getData().then((res) => {
-      setData(res)
-    } ); 
-  }, [])
-
-
   return (
     <section>
       <ul>
-        <ListNavigations
-          
+        <Card
           listOptions={[
             { label: 'Lista de produtos', path: '/Products' }
           ]}
