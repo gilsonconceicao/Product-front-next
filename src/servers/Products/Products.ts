@@ -31,3 +31,7 @@ type Address = {
 export async function getAllProducts() {
   return await AxiosConfig({ endpoint: '/Product', method: 'GET' });
 }
+
+export async function deleteProduct(id: string) {
+  return await AxiosConfig({ endpoint: `/Product/${id}`, method: 'DELETE' });
+}

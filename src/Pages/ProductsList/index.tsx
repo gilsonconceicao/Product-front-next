@@ -1,18 +1,28 @@
 'use client'
-import { Actions } from '@/Components/Actions/Actions';
+import { Action, Actions } from '@/Components/Actions/Actions';
 import { Card } from '@/Components/Card/Card';
 import RefreshProgress from '@/Components/CircularProgress/CircularProgress';
-import { useGetProductList } from '@/Hooks/Products/ProductsHook';
+import { useDeleteProduct, useGetProductList } from '@/Hooks/Products/ProductsHook';
 import { Grid, Stack } from '@mui/material';
 import { Edit, Delete, Comment } from '@mui/icons-material';
 import React from 'react'
 
 const ProductsList = () => {
-  const { data, isFetching } = useGetProductList();
+  const { data, isFetching, refetch } = useGetProductList();
+  const { mutate } = useDeleteProduct(refetch);
   const queryData = data;
+
+  const onDeleteProduct = (id: string) => mutate(id)
+
+  const listActions = [
+    { label: "Visualizar", Icon: Edit, action: () => {} },
+    { label: "Comentar", Icon: Comment, action: () => {}  },
+    { label: "Excluir", Icon: Delete, action: (id) => {} }
+  ] as Action[];
+
   return (
     <>
-      {isFetching ? <RefreshProgress /> : ""}
+      <Grid mb={2}>{isFetching ? <RefreshProgress /> : ""}</Grid>
       <Grid container spacing={{ xs: 2, md: 4 }} columns={{ xs: 4, sm: 8, md: 12 }} wrap='wrap'>
         {!!queryData && queryData?.map((product, index) => {
           return (
@@ -21,13 +31,9 @@ const ProductsList = () => {
                 title={product.name}
                 Actions={
                   <Actions
-                    lengthShow={0}
-                    listActions={[
-                      { label: "Visualizar", Icon: Edit },
-                      { label: "Comentar", Icon: Comment },
-                      { label: "Excluir", Icon: Delete },
-                      { label: "Ação 5", Icon: Comment }
-                    ]} />
+                    lengthShow={4}
+                    idRow={product.id}
+                    listActions={listActions} />
                 }
               />
             </Grid>

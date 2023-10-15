@@ -3,18 +3,19 @@ import { Button, Drawer, Grid, IconButton, Stack, SvgIconTypeMap } from '@mui/ma
 import { OverridableComponent } from '@mui/material/OverridableComponent';
 import React, { useEffect, useRef, useState } from 'react'
 
-type Action = {
+export type Action = {
   label: string,
   Icon: OverridableComponent<SvgIconTypeMap<{}, "svg">> & { muiName: string; };
-  onClick?: () => void;
+  action: (id: string) => void;
 }
 
 type ActionsProps = {
   listActions: Action[],
+  idRow: string;
   lengthShow: number
 }
 
-export const Actions: React.FC<ActionsProps> = ({ lengthShow, listActions }) => {
+export const Actions: React.FC<ActionsProps> = ({ lengthShow, listActions, idRow }) => {
   const [open, setOpen] = useState<boolean>(false);
 
   const handleOpen = () => setOpen(!open);
@@ -28,9 +29,9 @@ export const Actions: React.FC<ActionsProps> = ({ lengthShow, listActions }) => 
   
   return (
     <Stack direction='row' position='relative' alignItems='center'>
-      {listToShow.map(({ Icon, label, onClick }, index) => {
+      {listToShow.map(({ Icon, label, action }, index) => {
         return (
-          <IconButton key={index} onClick={onClick}>
+          <IconButton key={index} onClick={() => action(idRow)}>
             <Icon />
           </IconButton>
         )
@@ -43,12 +44,12 @@ export const Actions: React.FC<ActionsProps> = ({ lengthShow, listActions }) => 
         open={open}
         onClose={handleClose}
       >
-        {listToHide.map(({ Icon, label, onClick }, index) => {
+        {listToHide.map(({ Icon, label, action }, index) => {
           return (
             <Button
               className='p-5 content-start justify-start'
               onClick={() => {
-                onClick && onClick();
+                action && action(idRow);
                 handleClose();
               }}
               key={index}>

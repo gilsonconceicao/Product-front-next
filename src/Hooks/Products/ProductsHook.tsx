@@ -1,5 +1,5 @@
-import { ProductType, getAllProducts } from "@/servers/Products/Products"
-import { useQuery } from "@tanstack/react-query"
+import { ProductType, deleteProduct, getAllProducts } from "@/servers/Products/Products"
+import { useMutation, useQuery } from "@tanstack/react-query"
 
 export const useGetProductList = () => {
   return useQuery({
@@ -11,5 +11,15 @@ export const useGetProductList = () => {
       const { data } = await getAllProducts();
       return data as ProductType[];
     }
+  })
+}
+
+export const useDeleteProduct = (onSuccess: any) => {
+  return useMutation({
+    mutationFn: async (id:string) => await deleteProduct(id), 
+    onError: () => {
+      console.log("errro ao deletar produto")
+    },
+    onSuccess
   })
 }
