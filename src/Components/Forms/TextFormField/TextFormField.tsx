@@ -21,6 +21,11 @@ export const TextFormField = ({ name, label }: TextFormFieldProps) => {
       }) => {
         return (
           <TextField
+            sx={{
+              '.css-1n4twyu-MuiInputBase-input-MuiOutlinedInput-input': {
+                padding: '14px 14px'
+              }
+            }}
             helperText={error ? error.message : null}
             size="small"
             error={!!error}
