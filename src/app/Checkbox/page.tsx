@@ -20,15 +20,24 @@ const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 export default function Page() {
   const [selectedList, setSelectedList] = useState<string[]>([]);
 
-  console.log('listCustom: ', selectedList)
+  const selectedAll = () => {
+    const itemsSelected: string[] = list.map(item => item.value)
+    setSelectedList(itemsSelected)
+  }
+
+  const handleSelectedItems = (e: React.ChangeEvent<HTMLInputElement>, item: ListType) => {
+    const value = e.target.checked;
+    if (!value) {
+      const newList = selectedList.filter(prop => prop !== item.value);
+      return setSelectedList(newList);
+    }
+    return setSelectedList([...selectedList, item.value]);
+  }
 
   return (
     <>
-      <button onClick={() => {
-        const itemsSelected: string[] = list.map(item => item.value)
-        setSelectedList(itemsSelected)
-      }}>Selecionar todos</button>
-      <h1>TESTE</h1>
+      <button onClick={selectedAll}> Selecionar todos </button>
+
       {list.map((item) => {
         return (
           <>
@@ -36,15 +45,8 @@ export default function Page() {
               <FormControlLabel control={
                 <Checkbox
                   checked={selectedList.includes(item.value)}
-                  onChange={(e) => {
-                    const value = e.target.checked;
-                    if (value === false) {
-                      const newList = selectedList.filter(prop => prop !== item.value);
-                      return setSelectedList(newList);
-                    }
-                    setSelectedList([...selectedList, item.value]);
-                    console.log(value)
-                  }} />}
+                  onChange={(e) => handleSelectedItems(e, item)}
+                />}
                 label={item.label} />
             </FormGroup>
           </>
