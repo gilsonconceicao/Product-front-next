@@ -33,6 +33,18 @@ export async function getAllProducts() {
   return await AxiosConfig({ endpoint: '/Product', method: 'GET' });
 }
 
+export async function getProductById(id:string) {
+  return await AxiosConfig({ endpoint: `/Product/${id}`, method: 'GET' });
+}
+
+export async function updateProductById(id:string, payload: ProductType) {
+  return await AxiosConfig({ 
+    endpoint: `/UpdateProduct/${id}`, 
+    body: payload, 
+    method: 'PUT' 
+  });
+}
+
 export async function deleteProduct(id: string) {
   return await AxiosConfig({ endpoint: `/Product/${id}`, method: 'DELETE' });
 }

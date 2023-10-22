@@ -1,8 +1,14 @@
 import { TextFormField } from '@/Components/Forms/TextFormField/TextFormField';
 import { Button, Grid, Stack, Typography } from '@mui/material';
 import React from 'react'
+import { ParamsType } from './page';
 
-export const ProductForm = () => {
+type ProductFormProps = {
+  paramsId:string
+}
+
+export const ProductForm = ({paramsId}: ProductFormProps) => {
+  const isNew = paramsId === 'novo'
   const sessionSx = {
     display: 'grid',
     gridTemplateColumns: 'auto auto',
@@ -12,7 +18,7 @@ export const ProductForm = () => {
   return (
     <Stack spacing={2}>
       <Button sx={{ width: 200 }} type="submit" variant="outlined">
-        Criar usuário
+        {isNew ? 'Cadastrar produto' : 'Atualizar produto'}
       </Button>
       <Typography variant='h5'>Informações do produto</Typography>
       <Grid sx={sessionSx}>

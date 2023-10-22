@@ -3,32 +3,42 @@ import { FormContextProvider } from "@/Contexts/FormContext/FormContext";
 import { defaultValuesProductForm, validationSchemaProductForm } from "./Schema/ProductFormSchema";
 import { Button } from "@mui/material";
 import { ProductForm } from "./ProductForm";
-import { useCreateProduct } from "@/Hooks/Products/ProductsHook";
+import { useCreateProduct, useGetProductById, useUpdateProductById } from "@/Hooks/Products/ProductsHook";
 import { useRouter } from "next/navigation";
+import RefreshProgress from "@/Components/CircularProgress/CircularProgress";
 
-type ParamsType = { params: { productId: string } }
+export type ParamsType = { params: { id: string } }
 
 export default function Page({ params }: ParamsType) {
-  const router = useRouter();
+  const id = params.id;
+  const isNew = id === 'novo';
+   const { data: dataProduct, isFetching } = useGetProductById(id);
   const onSuccess = () => {
-    alert("Sucesso ao cadastrar o produto"); 
-    // router.push('/Product/');
+    const message = isNew ? "Sucesso ao cadastrado o produto" : "Producto editado com sucesso"
+    alert(message);
   };
   const onError = (error: any) => {
-    console.log('error: ',error); 
-    const errorMessage = Object.entries(error.response.data.errors).map(item => item[1]); 
-    alert("Houve um erro ao cadastrar o produto: " + errorMessage?.join(', ')); 
+    const errorMessage = Object.entries(error.response.data.errors).map(item => item[1]);
+    alert("Houve um erro : " + errorMessage?.join(', '));
   };
-  const { mutate } = useCreateProduct(onSuccess, onError); 
-  
+  const { mutate: mutateUpdateProduct } = useUpdateProductById(id, onSuccess, onError)
+  const { mutate } = useCreateProduct(onSuccess, onError);
+
+  if (id !== 'novo' && (dataProduct === null || dataProduct === undefined)) {
+    return <RefreshProgress />
+  }
+
   return (
     <>
+      {isFetching && <RefreshProgress />}
       <FormContextProvider
-        defaultValues={defaultValuesProductForm}
+        defaultValues={dataProduct ?? defaultValuesProductForm}
         validationSchema={validationSchemaProductForm}
-        onSubmit={(values) => mutate(values)}
+        onSubmit={(values) => isNew ? mutate(values) : mutateUpdateProduct(values)}
       >
-        <ProductForm />
+        <ProductForm
+          paramsId={id}
+        />
       </FormContextProvider>
     </>
   )

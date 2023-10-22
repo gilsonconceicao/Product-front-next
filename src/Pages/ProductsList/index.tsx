@@ -27,10 +27,12 @@ const ProductsList = () => {
   const onDeleteProduct = (id: string) => mutate(id)
 
   const listActions = [
-    { label: "Visualizar", Icon: Edit, action: () => { } },
+    { label: "Visualizar", Icon: Edit, action: (id) => router.push(`/Product/${id}`) },
     { label: "Comentar", Icon: Comment, action: () => { } },
     { label: "Excluir", Icon: Delete, action: (id) => setAction({ action: "delete", params: id }) }
   ] as Action[];
+
+  const showData =  !!queryData && queryData?.length > 0 
 
   return (
     <>
@@ -40,7 +42,7 @@ const ProductsList = () => {
       </Stack>
       <Grid mb={2} mt={2}>{isFetching ? <RefreshProgress /> : ""}</Grid>
       <Grid container spacing={{ xs: 2, md: 4 }} columns={{ xs: 4, sm: 8, md: 12 }} wrap='wrap'>
-        {!!queryData && queryData?.map((product, index) => {
+        {showData && queryData?.map((product, index) => {
           return (
             <Grid item xs={2} sm={4} md={4} key={index ?? product.id}>
               <Card

@@ -1,5 +1,5 @@
 'use client'
-import { createContext, useContext } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 import { Control, FieldErrors, FieldValues, UseFormGetValues, UseFormRegister, UseFormReset, UseFormSetValue, UseFormWatch, useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
  
@@ -28,10 +28,10 @@ type IChildren = {
   onSubmit: (values: FieldValues) => void;
 }
 
-export const FormContextProvider: React.FC<IChildren> = ({ children, defaultValues, validationSchema, onSubmit }) => {
+export const FormContextProvider: React.FC<IChildren> = ({ children, defaultValues,  validationSchema, onSubmit }) => {
   const { handleSubmit, formState: { errors }, control, watch, reset, getValues, setValue} = useForm({
     resolver: yupResolver(validationSchema),
-    defaultValues    
+    defaultValues: defaultValues
   }); 
 
   return (
