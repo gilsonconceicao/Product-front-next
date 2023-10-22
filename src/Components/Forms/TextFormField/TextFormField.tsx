@@ -8,7 +8,7 @@ type TextFormFieldProps = {
   label: string
 } & TextFieldProps;
 
-export const TextFormField = ({ name, label }: TextFormFieldProps) => {
+export const TextFormField = ({ name, label, ...rest }: TextFormFieldProps) => {
   const { control } = useFormContext();
   return (
     <Controller
@@ -16,16 +16,10 @@ export const TextFormField = ({ name, label }: TextFormFieldProps) => {
       control={control}
       render={({
         field: { onChange, value },
-        fieldState: { error },
-        formState,
+        fieldState: { error }
       }) => {
         return (
           <TextField
-            sx={{
-              '.css-1n4twyu-MuiInputBase-input-MuiOutlinedInput-input': {
-                padding: '14px 14px'
-              }
-            }}
             helperText={error ? error.message : null}
             size="small"
             error={!!error}
@@ -34,6 +28,7 @@ export const TextFormField = ({ name, label }: TextFormFieldProps) => {
             fullWidth
             label={label}
             variant="outlined"
+            {...rest}
           />
         )
       }}

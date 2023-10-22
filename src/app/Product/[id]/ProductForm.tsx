@@ -36,7 +36,7 @@ export const ProductForm = () => {
           <TextFormField
             label="Preço"
             name="price"
-            type="text"
+            type="number"
             fullWidth
           />
         </Grid>
@@ -44,7 +44,7 @@ export const ProductForm = () => {
           <TextFormField
             label="Disconto"
             name="discount"
-            type="text"
+            type="number"
             fullWidth
           />
         </Grid>
@@ -54,7 +54,7 @@ export const ProductForm = () => {
         <Grid>
           <TextFormField
             label="CEP"
-            name="zipCode"
+            name="address.zipCode"
             type="text"
             fullWidth
           />
@@ -62,7 +62,7 @@ export const ProductForm = () => {
         <Grid>
           <TextFormField
             label="Rua"
-            name="street"
+            name="address.street"
             type="text"
             fullWidth
           />
@@ -70,7 +70,7 @@ export const ProductForm = () => {
         <Grid>
           <TextFormField
             label="Cidade"
-            name="city"
+            name="address.city"
             type="text"
             fullWidth
           />
@@ -78,7 +78,7 @@ export const ProductForm = () => {
         <Grid>
           <TextFormField
             label="Estado"
-            name="state"
+            name="address.state"
             type="text"
             fullWidth
           />

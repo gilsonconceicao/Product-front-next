@@ -3,7 +3,7 @@ import axios, { AxiosRequestConfig } from "axios";
 interface AxiosConfigType {
   method: Method;
   endpoint: string;
-  body?: AxiosRequestConfig<any>
+  body?: AxiosRequestConfig<any> | any
   params?: AxiosRequestConfig<any>
 }
 

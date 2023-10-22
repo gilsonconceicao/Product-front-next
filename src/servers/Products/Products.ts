@@ -7,6 +7,7 @@ export type ProductType = {
   category: number;
   discount: number;
   price: number;
+  description: string;
   stockQuantity: number;
   createdAt: Date;
   discountExpirationDate: Date;
@@ -34,4 +35,12 @@ export async function getAllProducts() {
 
 export async function deleteProduct(id: string) {
   return await AxiosConfig({ endpoint: `/Product/${id}`, method: 'DELETE' });
+}
+
+export async function createProduct(payload: ProductType) {
+  return await AxiosConfig({ 
+    endpoint: `/CreateProduct`, 
+    method: 'POST', 
+    body: payload
+  });
 }

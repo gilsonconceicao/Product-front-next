@@ -12,17 +12,22 @@ interface ICardProps {
   Actions: React.ReactNode;
 }
 
+const isValidDescription = (description: string): boolean => {
+  if (!description) return false;
+  return description !== null && description.length > 0; 
+}
+
 export const Card: React.FC<ICardProps> = ({
   labelClose = "Fechar",
   labelOpen = "Abrir", 
-  description = "Descrição do produto não informado", 
+  description, 
   title, 
   Actions
 }) => {
   return (
     <div className='p-3 rounded-md border-2 border-[#DCDCDC]'>
       <h1 className='text-3xl border-b-2 border-t-gray-400 pb-3'>{title}</h1>
-      <p className='pt-2'>{description}</p>
+      <p className='pt-2'>{isValidDescription(description!) ? description : "Descrição do produto não informado"}</p>
       <div className='flex justify-end gap-2 mt-4'>{Actions}</div>
     </div>
   )
