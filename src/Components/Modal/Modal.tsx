@@ -21,7 +21,7 @@ const style = {
 type ModalCustomType = {
   open: boolean;
   title: string; 
-  description: string;
+  description?: string;
   onClose: () => void;
   children: any;
 }

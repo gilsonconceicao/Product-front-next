@@ -8,7 +8,6 @@ const ProductsListComponent = React.lazy(() => import('../Pages/ProductsList/ind
 export default function Home() {
   return (
     <section>
-      <h2 className='text-3xl mb-3'>Lista de produtos</h2>
       <Suspense fallback={<div>Loading...</div>}>
         <ProductsListComponent />
       </Suspense>
