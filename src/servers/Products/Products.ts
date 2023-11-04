@@ -39,7 +39,7 @@ export async function getProductById(id:string) {
 
 export async function updateProductById(id:string, payload: ProductType) {
   return await AxiosConfig({ 
-    endpoint: `/UpdateProduct/${id}`, 
+    endpoint: `/Product/${id}`, 
     body: payload, 
     method: 'PUT' 
   });
@@ -51,7 +51,7 @@ export async function deleteProduct(id: string) {
 
 export async function createProduct(payload: ProductType) {
   return await AxiosConfig({ 
-    endpoint: `/CreateProduct`, 
+    endpoint: `/Product`, 
     method: 'POST', 
     body: payload
   });

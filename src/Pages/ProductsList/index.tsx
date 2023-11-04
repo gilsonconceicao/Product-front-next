@@ -63,11 +63,6 @@ const ProductsList = () => {
           </IconButton>
         </Grid>
       </Stack>
-      {/* <Grid width={100} m='20px auto'>
-        <p className='text-center'>
-          {isFetching ? <RefreshProgress /> : ""}
-        </p>
-      </Grid> */}
       <div className='w-9/12 m-auto mt-10' >
         <Grid container spacing={{ xs: 2, md: 1 }} mt={2} wrap='wrap'>
           {listFiltered?.map((product, index) => {
