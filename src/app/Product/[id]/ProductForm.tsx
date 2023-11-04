@@ -1,14 +1,18 @@
 import { TextFormField } from '@/Components/Forms/TextFormField/TextFormField';
-import { Button, Grid, Stack, Typography } from '@mui/material';
+import { Button, Grid, IconButton, Stack, Typography } from '@mui/material';
 import React from 'react'
 import { ParamsType } from './page';
+import { ArrowBack } from '@mui/icons-material';
+import { useRouter } from 'next/navigation';
 
 type ProductFormProps = {
-  paramsId:string
+  paramsId: string
 }
 
-export const ProductForm = ({paramsId}: ProductFormProps) => {
-  const isNew = paramsId === 'novo'
+export const ProductForm = ({ paramsId }: ProductFormProps) => {
+  const router = useRouter();
+
+  const isNew = paramsId === 'novo';
   const sessionSx = {
     display: 'grid',
     gridTemplateColumns: 'auto auto',
@@ -17,9 +21,14 @@ export const ProductForm = ({paramsId}: ProductFormProps) => {
   }
   return (
     <Stack spacing={2}>
-      <Button sx={{ width: 200 }} type="submit" variant="outlined">
-        {isNew ? 'Cadastrar produto' : 'Atualizar produto'}
-      </Button>
+      <div className='flex items-center gap-2 justify-between'>
+        <IconButton onClick={() => router.push('/')}>
+          <ArrowBack />
+        </IconButton>
+        <Button sx={{ width: 200 }} type="submit" variant="outlined">
+          {isNew ? 'Cadastrar produto' : 'Atualizar produto'}
+        </Button>
+      </div>
       <Typography variant='h5'>Informações do produto</Typography>
       <Grid sx={sessionSx}>
         <Grid>
@@ -42,14 +51,6 @@ export const ProductForm = ({paramsId}: ProductFormProps) => {
           <TextFormField
             label="Preço"
             name="price"
-            type="number"
-            fullWidth
-          />
-        </Grid>
-        <Grid>
-          <TextFormField
-            label="Disconto"
-            name="discount"
             type="number"
             fullWidth
           />

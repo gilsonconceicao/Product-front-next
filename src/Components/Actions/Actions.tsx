@@ -32,7 +32,7 @@ export const Actions: React.FC<ActionsProps> = ({ lengthShow, listActions, idRow
       {listToShow.map(({ Icon, label, action }, index) => {
         return (
           <IconButton key={index} onClick={() => action(idRow)}>
-            <Icon />
+            <Icon sx={{ height: 20, width: 20}}/>
           </IconButton>
         )
       })}

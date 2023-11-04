@@ -1,5 +1,5 @@
 import { createTheme } from '@mui/material/styles';
-import { teal, purple } from '@mui/material/colors';
+import { teal, purple, common } from '@mui/material/colors';
 
 export const themeCustom = createTheme({
   palette: {

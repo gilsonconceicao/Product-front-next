@@ -8,6 +8,7 @@ export const CommentsForm = () => {
       <TextFormField
         label='Comentário'
         name='comment'
+        autoComplete='off'
       />
       <Button type='submit' variant='outlined'> Adicionar</Button>
     </Stack>

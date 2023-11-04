@@ -6,7 +6,7 @@ export const useGetProductList = () => {
   return useQuery({
     queryKey: ['products-list'],
     refetchIntervalInBackground: false,
-    refetchOnMount: false,
+    refetchOnMount: 'always',
     refetchOnWindowFocus: false,
     queryFn: async () => {
       const { data } = await getAllProducts();

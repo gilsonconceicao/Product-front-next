@@ -9,7 +9,7 @@ type TextFormFieldProps = {
 } & TextFieldProps;
 
 export const TextFormField = ({ name, label, ...rest }: TextFormFieldProps) => {
-  const { control, watch } = useFormContext();
+  const { control } = useFormContext();
   return (
     <Controller
       name={name}
@@ -18,8 +18,6 @@ export const TextFormField = ({ name, label, ...rest }: TextFormFieldProps) => {
         field: { onChange, value },
         fieldState: { error }
       }) => {
-        console.log(name,label, value)
-        console.log('watch: ', watch(name))
         return (
           <TextField
             helperText={error ? error.message : null}

@@ -12,9 +12,10 @@ export type ParamsType = { params: { id: string } }
 export default function Page({ params }: ParamsType) {
   const id = params.id;
   const isNew = id === 'novo';
-   const { data: dataProduct, isFetching } = useGetProductById(id);
+   const { data: dataProduct, isFetching, refetch } = useGetProductById(id);
   const onSuccess = () => {
     const message = isNew ? "Sucesso ao cadastrado o produto" : "Producto editado com sucesso"
+    if (!isNew) refetch();
     alert(message);
   };
   const onError = (error: any) => {
